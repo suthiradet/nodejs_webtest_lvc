@@ -1,0 +1,188 @@
+@font-face {
+    font-family: 'Kanit';
+    src: url('/font/Kanit-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: 'Kanit', sans-serif;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.thin {
+    font-weight: 300;
+}
+body {
+    font-family: 'Kanit', sans-serif;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+
+/* กล่องครอบตาราง */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* ตาราง */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: inherit;
+    font-size: 15px;
+    color: #333;
+    white-space: nowrap;
+}
+
+/* หัวตาราง */
+thead {
+    background: #334155;
+    color: #fff;
+}
+
+th {
+    padding: 16px 20px;
+    text-align: left;
+    font-weight: 600;
+}
+
+/* ข้อมูลในตาราง */
+td {
+    padding: 14px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+/* สลับสีแถว */
+tbody tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+/* Hover แถว */
+tbody tr:hover {
+    background: #eaf2ff;
+    transition: background 0.2s ease;
+}
+
+/* แถวสุดท้าย */
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-success { background-color: blue; color: white; }
+
+.btn-loading { background-color: #d1d5db; color: #6b7280; cursor: not-allowed; }
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.radio-option input[type="radio"] {
+    margin: 0;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    padding: 7px 12px;
+    margin: 0 0 20px 0;
+
+    width: fit-content;
+    height: auto;
+
+    color: #555;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+
+    transition: all 0.2s ease;
+}
+
+.back-button:hover {
+    color: white;
+    background-color: #333;
+    border-color: #333;
+}
+
+.back-arrow {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.action-links {
+  white-space: nowrap;
+  text-align: center;
+}
+
+.action-links a {
+  display: inline-block;
+  padding: 4px 6px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.edit-link {
+  color: #2563eb;
+}
+
+.edit-link:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.delete-link {
+  color: #dc2626;
+}
+
+.delete-link:hover {
+  color: #b91c1c;
+  text-decoration: underline;
+}
+
+.action-separator {
+  color: #cbd5e1;
+}

@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจัดการผู้ใช้</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>รายชื่อผู้ใช้</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ลำดับ</th>
+                <th>ชื่อ</th>
+                <th>นามสกุล</th>
+                <th>อีเมล</th>
+                <th>เบอร์โทร</th>
+                <th>ห้องเรียน</th>
+                <th>แผนกวิชา</th>
+                <th>จัดการ</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% let i = 1; %>
+            <% student.forEach(student => { %>
+                <tr>
+                    <td><%= i++ %></td>
+                    <td><%= student.name_std %></td>
+                    <td><%= student.surname_std %></td>
+                    <td><%= student.email_std %></td>
+                    <td><%= student.number_std %></td>
+                    <td><%= student.name_class %></td>
+                    <td><%= student.name_dept %></td>
+
+                    <td class="action-links">
+                        <a href="/student/edit/<%= student.id_std %>" class="edit-link">
+                            แก้ไข
+                        </a>
+
+                        <span>|</span>
+
+                        <a href="#" class="delete-link"
+                           onclick="deleteStudent('<%= student.id_std %>'); return false;">
+                            ลบ
+                        </a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+    <p>
+        <center>
+            <button class="py-4 btn btn-success hover:bg-blue-600"
+                onclick="window.location.href='/student/add'">
+                เพิ่มข้อมูลนักศึกษา
+            </button>
+        </center>
+    </p>
+
+    <!-- JavaScript สำหรับลบข้อมูล -->
+    <script>
+        async function deleteStudent(id) {
+
+            if (!confirm('คุณต้องการลบข้อมูลนักศึกษานี้หรือไม่?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/student/${id}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await response.json();
+
+                alert(result.message);
+
+                if (response.ok) {
+                    window.location.reload();
+                }
+
+            } catch (error) {
+                console.error(error);
+                alert('ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้');
+            }
+        }
+    </script>
+
+</body>
+</html>

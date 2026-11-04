@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แก้ไขข้อมูลนักเรียน</title>
+
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: #f0f4f8;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #00000015;
+        }
+
+        .container-footer {
+            max-width: 550px;
+            width: 100%;
+            margin: 15px auto 0;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2563eb;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        .input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+    </style>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>แก้ไขข้อมูลนักเรียน</h1>
+
+        <form action="/student/edit/<%= student.id_std %>" method="POST">
+
+           
+            <input
+                type="hidden"
+                value="<%= student.id_std %>"
+                class="input"
+                disabled
+            >
+
+            <label>ชื่อ</label>
+            <input
+                type="text"
+                name="name_std"
+                required
+                class="input"
+                value="<%= student.name_std %>"
+                placeholder="กรอกชื่อ"
+            >
+
+            <label>นามสกุล</label>
+            <input
+                type="text"
+                name="surname_std"
+                required
+                class="input"
+                value="<%= student.surname_std %>"
+                placeholder="กรอกนามสกุล"
+            >
+
+            <label>อีเมล</label>
+            <input
+                type="text"
+                name="email_std"
+                required
+                class="input"
+                value="<%= student.email_std %>"
+                placeholder="กรอกอีเมล"
+            >
+
+            <label>เบอร์โทร</label>
+            <input
+                type="text"
+                name="number_std"
+                required
+                class="input"
+                value="<%= student.number_std %>"
+                placeholder="กรอกเบอร์โทร"
+            >
+
+            <label>ห้องเรียน</label>
+
+            <div class="radio-option">
+                <select name="id_class" required class="input">
+
+                    <option value="">เลือกห้องเรียน</option>
+
+                    <% classes.forEach(function(item) { %>
+
+                        <option
+                            value="<%= item.id_class %>"
+                            <%= String(student.id_class) === String(item.id_class) ? 'selected' : '' %>
+                        >
+                            <%= item.name_class %>
+                        </option>
+
+                    <% }); %>
+
+                </select>
+            </div>
+
+            <label>แผนกวิชา</label>
+
+            <div class="radio-option">
+                <select name="id_dept" required class="input">
+
+                    <option value="">เลือกแผนกวิชา</option>
+
+                    <% department.forEach(function(item) { %>
+
+                        <option
+                            value="<%= item.id_dept %>"
+                            <%= String(student.id_dept) === String(item.id_dept) ? 'selected' : '' %>
+                        >
+                            <%= item.name_dept %>
+                        </option>
+
+                    <% }); %>
+
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">
+                บันทึกการแก้ไข
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="container-footer">
+        <a href="/" class="back-button">
+            <span class="back-arrow">←</span>
+            <span>ย้อนกลับ</span>
+        </a>
+    </div>
+
+</body>
+</html>

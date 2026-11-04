@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>เพิ่มข้อมูลนักเรียน</title>
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: #f0f4f8;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #00000015;
+        }
+
+        .container-footer {
+        max-width: 550px; /* ให้เท่ากับ Container หลัก */
+        width: 100%;
+         margin: 15px auto 0;
+        display: flex;
+        justify-content: flex-start;
+}
+
+        h1 {
+            text-align: center;
+            color: #2563eb;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        .input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        label{
+            margin-top: 20px;
+            font-weight: 600;
+        }
+    </style>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+     
+
+    <div class="container"> 
+      
+        <h1>เพิ่มข้อมูลนักเรียน</h1>
+
+        <form action="/student/add" method="POST">
+           
+
+            <label>ชื่อ</label>
+            <input type="text" name="name_std" required class="input" placeholder="กรอกชื่อ">
+
+            <label>นามสกุล</label>
+            <input type="text" name="surname_std" required class="input" placeholder="กรอกนามสกุล">
+
+            <label>อีเมล</label>
+            <input type="email" name="email_std" required class="input" placeholder="กรอกอีเมล">
+
+            <label>เบอร์โทร</label>
+            <input type="text" name="number_std" required class="input" placeholder="กรอกเบอร์โทร">
+
+
+            <label class="radio-group">ห้องเรียน</label>
+            
+                <div class="radio-option">
+                    <select name="id_class" required class="input">
+                        
+                        <option value=""> เลือกห้องเรียน </option>
+                        <% classes.forEach(function(item)  { %>
+                        <option value="<%= item.id_class %>" class="input"> <%= item.name_class %> <% }); %></option>
+                    </select>
+                </div>
+            
+
+
+            <label class="radio-group">แผนกวิชา</label>
+            
+                <div class="radio-option">
+                    <select name="id_dept" required class="input">
+                        <option value=""> เลือกแผนกวิชา </option>
+                        <% department.forEach(function(item)  { %>
+                        <option value="<%= item.id_dept %>" class="input"> <%= item.name_dept %> <% }); %></option>
+                        
+                    </select>
+                </div>
+         
+
+            <button type="submit" class="btn btn-success">บันทึกข้อมูล</button>
+        </form>
+    </div>
+
+
+
+<div class="container-footer">
+    <a href="/" class="back-button">
+        <span class="back-arrow">←</span>
+        <span>ย้อนกลับ</span>
+    </a>
+</div>
+</body>
+</html>
