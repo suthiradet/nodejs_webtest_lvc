@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: #f0f4f8;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #00000015;
+        }
+
+        .container-footer {
+        max-width: 550px; /* ให้เท่ากับ Container หลัก */
+        width: 100%;
+         margin: 15px auto 0;
+        display: flex;
+        justify-content: flex-start;
+}
+
+        h1 {
+            text-align: center;
+            color: #2563eb;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        .input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        label{
+            margin-top: 20px;
+            font-weight: 600;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form action="/login" method="post" class="login-form">
+            <label for="username">Username:</label>
+            <input type="text" name="username_acc" placeholder="กรอกชื่อผู้ใช้" required class="input">
+
+            <label for="password">Password:</label>
+            <input type="password" name="password_acc" placeholder="กรอกรหัสผ่าน" required class="input">
+            <button type="submit">Login</button>
+        </form>
+
+       <% if (typeof error !== 'undefined' && error) { %>
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'เข้าสู่ระบบไม่สำเร็จ',
+        text: '<%= error %>',
+        confirmButtonText: 'ตกลง',
+        confirmButtonColor: '#2563eb'
+    });
+
+ 
+</script>
+<% } %>
+
+
+    </div>
+</body>
+</html>

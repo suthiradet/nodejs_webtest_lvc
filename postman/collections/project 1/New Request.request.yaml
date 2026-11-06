@@ -1,0 +1,18 @@
+$kind: http-request
+url: http://localhost:3000/student/add
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+        "id_std": "12345",
+                "name_std": "",
+                "surname_std": "",
+                "email_std": "",
+                "number_std": "",
+                "id_class": "",
+                "id_dept": ""
+    }
+order: 1000

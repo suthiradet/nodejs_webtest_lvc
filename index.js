@@ -1,21 +1,98 @@
 
 const express = require('express');
+const session = require('express-session');
 const db = require('./db');
 
 const app = express();
 const PORT = 3000;
 
-// ตั้งค่า EJS เป็น Template Engine
+// ตั้งค่า EJS
 app.set('view engine', 'ejs');
 
 // อ่านข้อมูลจาก Form
 app.use(express.urlencoded({ extended: true }));
 
+// ตั้งค่า Session
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'your-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        maxAge: 1000 * 60 * 60
+    }
+}));
+
 // เปิดให้เข้าถึงไฟล์ใน public
 app.use(express.static('public'));
 
-// หน้าแรก แสดงรายชื่อนักศึกษา
+// Middleware ตรวจสอบการ Login
+function requireLogin(req, res, next) {
+    if (!req.session.account) {
+        return res.redirect('/');
+    }
+
+    next();
+}
 app.get('/', async (req, res) => {
+    try {
+        const [account] = await db.query(`SELECT * FROM account`);
+
+
+        res.render('login', { account });
+    } catch (error) {
+        res.status(404).send('เกิดข้อผิดพลาดในการดึงข้อมูล');
+    }
+
+    
+});
+
+app.post('/login', async (req, res) => {
+    const { username_acc, password_acc } = req.body;
+
+    try {
+        const [account] = await db.query(
+            `SELECT * FROM account
+             WHERE username_acc = ? AND password_acc = ?`,
+            [username_acc, password_acc]
+        );
+
+        if (account.length > 0) {
+
+            // สร้าง Session ใหม่หลังจาก Login สำเร็จ
+            req.session.regenerate((error) => {
+                if (error) {
+                    console.error(error);
+                    return res.status(500).send('เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
+                }
+
+                req.session.account = account[0];
+
+                // บันทึก Session ก่อนเปลี่ยนหน้า
+                req.session.save((error) => {
+                    if (error) {
+                        console.error(error);
+                        return res.status(500).send('ไม่สามารถบันทึก Session ได้');
+                    }
+
+                    res.redirect('/home');
+                });
+            });
+
+        } else {
+            res.status(401).render('login', {
+    error: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'
+});
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('เกิดข้อผิดพลาดในการตรวจสอบข้อมูลเข้าสู่ระบบ');
+    }
+});
+
+// หน้าหลัก แสดงรายชื่อนักศึกษา
+app.get('/home', requireLogin, async (req, res) => {
     try {
        
         const [student] = await db.query(`
@@ -86,7 +163,7 @@ app.post('/student/add', async (req, res) => {
             id_dept
         ]);
 
-        res.redirect('/');
+        res.redirect('/home');
     } catch (error) {
         console.error(error);
         res.status(500).send('ไม่สามารถบันทึกข้อมูลได้');
@@ -199,7 +276,7 @@ app.post('/student/edit/:id', async (req, res) => {
             ]
         );
 
-        res.redirect('/');
+        res.redirect('/home');
 
     } catch (error) {
         console.error(error);
